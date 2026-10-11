@@ -1204,10 +1204,11 @@ body.admin-mode .nav button .nav-badge {
   color: #6d28d9;
 }
 
-/* Hide all report issue buttons in Admin mode */
+/* Hide all report issue & student-only emergency buttons in Admin mode */
 body.admin-mode #reportNav,
 body.admin-mode #reportBtn,
-body.admin-mode #mobFabBtn {
+body.admin-mode #mobFabBtn,
+body.admin-mode #emergencyNavBtn {
   display: none !important;
 }
 
@@ -1369,6 +1370,414 @@ body.admin-mode .quick-filter-pill.active {
   margin: 3px 0 0;
   font-size: 12px;
   color: #4b6656;
+}
+
+/* ==========================================================================
+   EMERGENCY CONTACTS FEATURE (STUDENT SECTION)
+   ========================================================================== */
+.emergency-nav-btn {
+  color: #b91c1c !important;
+  font-weight: 700 !important;
+  transition: all .15s ease !important;
+}
+
+.emergency-nav-btn:hover {
+  background: #fef2f2 !important;
+  color: #991b1b !important;
+}
+
+.emergency-pill {
+  background: #fee2e2 !important;
+  color: #dc2626 !important;
+  font-weight: 800 !important;
+  font-size: 10px !important;
+  animation: pulseEmergency 2.2s infinite ease-in-out;
+}
+
+@keyframes pulseEmergency {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.85; transform: scale(1.06); }
+}
+
+.helpbox-emergency-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 9px;
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
+  padding: 6px 11px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background .15s ease;
+  width: 100%;
+  justify-content: center;
+}
+
+.helpbox-emergency-btn:hover {
+  background: #fca5a5;
+  color: #7f1d1d;
+}
+
+.emergency-banner-btn {
+  background: #fff !important;
+  color: #b91c1c !important;
+  border: 1px solid #fecaca !important;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04) !important;
+  font-size: 12px !important;
+  padding: 8px 13px !important;
+  font-weight: 700 !important;
+  white-space: nowrap !important;
+}
+
+.emergency-banner-btn:hover {
+  background: #fef2f2 !important;
+  border-color: #f87171 !important;
+}
+
+/* Emergency Modal Dialog */
+.emergency-modal {
+  width: min(680px, 100%);
+  max-height: 88vh;
+  padding: 26px 28px;
+  border-radius: 20px;
+}
+
+.emergency-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 16px;
+}
+
+.emergency-header-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.emergency-header-badge {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: #fee2e2;
+  color: #dc2626;
+  font-size: 20px;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  box-shadow: 0 0 0 4px #fef2f2;
+}
+
+.emergency-head h2 {
+  font: 800 20px 'Manrope', sans-serif;
+  color: var(--ink);
+  margin: 0;
+}
+
+.modal-subtext {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: #6b7280;
+}
+
+/* Emergency Filter Chips */
+.emergency-filter-tabs {
+  display: flex;
+  gap: 7px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid var(--line);
+}
+
+.e-tab-btn {
+  border: 1px solid #e5e7eb;
+  background: #f9fafb;
+  color: #4b5563;
+  padding: 6px 12px;
+  border-radius: 18px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.e-tab-btn:hover {
+  background: #fff;
+  border-color: #cbd5e1;
+}
+
+.e-tab-btn.active {
+  background: #dc2626;
+  border-color: #dc2626;
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(220, 38, 38, 0.25);
+}
+
+/* Emergency Contact Cards Grid */
+.emergency-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+  gap: 12px;
+  max-height: 52vh;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.emergency-card {
+  border: 1px solid #e5e7eb;
+  background: #fff;
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 10px;
+  transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+
+.emergency-card:hover {
+  transform: translateY(-2px);
+  border-color: #cbd5e1;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+}
+
+.emergency-card-top {
+  display: flex;
+  gap: 11px;
+  align-items: flex-start;
+}
+
+.emergency-avatar {
+  width: 38px;
+  height: 38px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+.emergency-info {
+  flex: 1;
+}
+
+.emergency-info h4 {
+  margin: 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--ink);
+  line-height: 1.3;
+}
+
+.emergency-sub-info {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin-top: 3px;
+}
+
+.live-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #10b981;
+  box-shadow: 0 0 0 3px #d1fae5;
+  display: inline-block;
+}
+
+.avail-text {
+  font-size: 10px;
+  font-weight: 700;
+  color: #047857;
+}
+
+.ext-badge {
+  font-size: 10px;
+  font-weight: 700;
+  background: #f3f4f6;
+  color: #4b5563;
+  padding: 1px 6px;
+  border-radius: 5px;
+}
+
+.emergency-desc {
+  font-size: 11px;
+  color: #6b7280;
+  line-height: 1.45;
+  margin: 0;
+}
+
+.emergency-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+.call-action-btn {
+  flex: 1;
+  background: #186b4b;
+  color: #fff !important;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 8px 10px;
+  border-radius: 8px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  box-shadow: 0 2px 6px rgba(24, 107, 75, 0.2);
+  transition: background .15s ease;
+}
+
+.call-action-btn:hover {
+  background: #12553a;
+}
+
+.copy-action-btn {
+  padding: 8px 11px;
+  font-size: 11px;
+  font-weight: 700;
+  border-radius: 8px;
+  background: #fff;
+  border: 1px solid #d1d5db;
+  color: var(--ink);
+}
+
+.copy-action-btn:hover {
+  background: #f3f4f6;
+}
+
+/* Emergency Callout Warning */
+.emergency-callout {
+  margin-top: 16px;
+  background: #fef2f2;
+  border: 1px solid #fee2e2;
+  border-radius: 12px;
+  padding: 12px 14px;
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+}
+
+.emergency-callout .callout-icon {
+  font-size: 16px;
+  color: #dc2626;
+  line-height: 1.2;
+}
+
+.emergency-callout strong {
+  display: block;
+  font-size: 12px;
+  color: #991b1b;
+}
+
+.emergency-callout span {
+  font-size: 11px;
+  color: #b91c1c;
+  line-height: 1.4;
+}
+
+/* Quick Emergency Widget in Student Right Column */
+.quick-emergency-widget {
+  background: #fff;
+  border: 1px solid #fed7aa;
+  border-radius: 13px;
+  padding: 12px 14px;
+  margin-bottom: 14px;
+  box-shadow: 0 2px 8px rgba(234, 88, 12, 0.05);
+}
+
+.q-emer-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 9px;
+}
+
+.q-emer-badge {
+  font-size: 10px;
+  font-weight: 800;
+  color: #c2410c;
+  letter-spacing: 0.5px;
+}
+
+.q-emer-viewall {
+  border: 0;
+  background: transparent;
+  color: #ea580c;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 0;
+  transition: color .12s ease;
+}
+
+.q-emer-viewall:hover {
+  color: #c2410c;
+  text-decoration: underline;
+}
+
+.q-emer-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.q-emer-item {
+  background: #fff7ed;
+  border: 1px solid #ffedd5;
+  border-radius: 9px;
+  padding: 7px 9px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.q-emer-ico {
+  font-size: 15px;
+}
+
+.q-emer-text b {
+  display: block;
+  font-size: 11px;
+  color: #1f2937;
+  white-space: nowrap;
+}
+
+.q-emer-text small {
+  font-size: 10px;
+  color: #6b7280;
+}
+
+.q-emer-call {
+  margin-left: auto;
+  background: #ea580c;
+  color: #fff !important;
+  text-decoration: none;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 6px;
+  transition: background .12s;
+  white-space: nowrap;
+}
+
+.q-emer-call:hover {
+  background: #c2410c;
+}
+
+@media (max-width: 600px) {
+  .emergency-card-grid { grid-template-columns: 1fr; }
+  .q-emer-row { grid-template-columns: 1fr; }
+  .emergency-modal { padding: 18px 14px; }
 }
 
 @media (max-width: 380px) {

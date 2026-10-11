@@ -248,6 +248,24 @@ document.addEventListener('DOMContentLoaded', () => {
     };
   }
 
+  // Emergency Contacts Modal Listeners
+  if ($('#emergencyNavBtn')) $('#emergencyNavBtn').onclick = openEmergencyModal;
+  if ($('#emergencyClose')) $('#emergencyClose').onclick = closeEmergencyModal;
+  if ($('#emergencyModal')) {
+    $('#emergencyModal').onclick = e => {
+      if (e.target === $('#emergencyModal')) closeEmergencyModal();
+    };
+  }
+
+  // Emergency Category filter tabs
+  $$('#emergencyFilterTabs .e-tab-btn').forEach(btn => {
+    btn.onclick = () => {
+      if (btn.dataset.ecat) {
+        filterEmergencyCategory(btn.dataset.ecat);
+      }
+    };
+  });
+
   // Report Form Submit
   const reportForm = $('#reportForm');
   if (reportForm) {
@@ -286,6 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
       closeSidebar();
       closeReportModal();
       closeTicketModal();
+      closeEmergencyModal();
     }
   });
 

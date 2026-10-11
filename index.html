@@ -110,6 +110,10 @@
           <span class="ico">◷</span>My complaints
           <span class="nav-badge" id="badgeMine">3</span>
         </button>
+        <button id="emergencyNavBtn" class="emergency-nav-btn" type="button">
+          <span class="ico">🚨</span>Emergency contacts
+          <span class="nav-badge emergency-pill">24/7</span>
+        </button>
         <button id="reportNav">
           <span class="ico">＋</span>Report an issue
         </button>
@@ -337,6 +341,48 @@
     </div>
     <div class="ticket-detail-view" id="ticketDetailBody">
       <!-- Injected via JavaScript -->
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     MODAL 3: EMERGENCY CONTACTS MODAL (STUDENT SAFETY & RAPID DISPATCH)
+     ========================================================================== -->
+<div class="overlay" id="emergencyModal">
+  <div class="modal emergency-modal">
+    <div class="modal-head emergency-head">
+      <div class="emergency-header-title">
+        <div class="emergency-header-badge">🚨</div>
+        <div>
+          <h2>Campus Emergency Contacts</h2>
+          <p class="modal-subtext">24/7 Rapid response helplines &amp; campus care units for students</p>
+        </div>
+      </div>
+      <button class="close" id="emergencyClose" aria-label="Close emergency modal">×</button>
+    </div>
+
+    <!-- Quick Category Filter Chips -->
+    <div class="emergency-filter-tabs" id="emergencyFilterTabs">
+      <button class="e-tab-btn active" data-ecat="all" type="button">All (7)</button>
+      <button class="e-tab-btn" data-ecat="Safety" type="button">🛡️ Safety &amp; Security</button>
+      <button class="e-tab-btn" data-ecat="Medical" type="button">🚑 Medical</button>
+      <button class="e-tab-btn" data-ecat="Hazard" type="button">🚒 Hazard / Fire</button>
+      <button class="e-tab-btn" data-ecat="Hostel" type="button">🏢 Hostel Warden</button>
+      <button class="e-tab-btn" data-ecat="Utilities" type="button">💧 Utilities &amp; IT</button>
+    </div>
+
+    <!-- Emergency Contacts Grid -->
+    <div class="emergency-card-grid" id="emergencyCardGrid">
+      <!-- Injected via JavaScript -->
+    </div>
+
+    <!-- Emergency Guidance Footer -->
+    <div class="emergency-callout">
+      <div class="callout-icon">⚡</div>
+      <div class="callout-text">
+        <strong>Life-threatening incident or active hazard?</strong>
+        <span>Trigger the nearest physical emergency alarm or notify the nearest security guard post immediately.</span>
+      </div>
     </div>
   </div>
 </div>

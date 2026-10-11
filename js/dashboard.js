@@ -13,6 +13,170 @@ const campusNotices = [
   { icon: '🚰', title: 'Science Block Water Cooler', text: 'Filter sanitization scheduled for tomorrow afternoon.' }
 ];
 
+// Campus Emergency Contacts Directory
+const emergencyContacts = [
+  {
+    id: 'sec',
+    icon: '🛡️',
+    name: 'Campus Security & Patrol Desk',
+    category: 'Safety',
+    ext: 'x4400',
+    phone: '+91 98765 44000',
+    available: '24/7 Active Duty',
+    desc: 'Main Gate & Perimeter Patrol. Immediate dispatch for physical threats, theft, trespassers, or night escorts.',
+    badgeColor: '#e02424',
+    badgeBg: '#fde8e8'
+  },
+  {
+    id: 'med',
+    icon: '🚑',
+    name: 'Health Center & Ambulance',
+    category: 'Medical',
+    ext: 'x4402',
+    phone: '+91 98765 44002',
+    available: '24/7 Rapid Medical',
+    desc: 'Campus Medical Dispensary & First Aid. Emergency doctor on call, oxygen support, and immediate ambulance dispatch.',
+    badgeColor: '#057a55',
+    badgeBg: '#def7ec'
+  },
+  {
+    id: 'fire',
+    icon: '🚒',
+    name: 'Fire & Electrical Hazards',
+    category: 'Hazard',
+    ext: 'x4401',
+    phone: '+91 98765 44001',
+    available: '24/7 Immediate',
+    desc: 'Rapid hazard squad for fire alarms, smoke, short-circuits, live wires, and chemical laboratory leaks.',
+    badgeColor: '#c27803',
+    badgeBg: '#fdf6b2'
+  },
+  {
+    id: 'women',
+    icon: '🚨',
+    name: "Women's Safety & Anti-Ragging Cell",
+    category: 'Safety',
+    ext: 'x4409',
+    phone: '1800-180-5522',
+    available: '24/7 Confidential',
+    desc: 'Zero tolerance support hotline. Dedicated female security officers and counselors for immediate assistance.',
+    badgeColor: '#9061f9',
+    badgeBg: '#f3e8ff'
+  },
+  {
+    id: 'warden',
+    icon: '🏢',
+    name: 'Chief Hostel Warden Office',
+    category: 'Hostel',
+    ext: 'x4403',
+    phone: '+91 98765 44003',
+    available: 'Hostel Block A, B & C',
+    desc: 'Hostel safety, urgent room lockouts, medical evacuation from dorms, and emergency overnight assistance.',
+    badgeColor: '#3f83f8',
+    badgeBg: '#ebf5ff'
+  },
+  {
+    id: 'water',
+    icon: '💧',
+    name: 'Critical Water & Plumbing Disaster',
+    category: 'Utilities',
+    ext: 'x4404',
+    phone: '+91 98765 44004',
+    available: '24/7 Emergency Line',
+    desc: 'Main pipe burst, major hostel flooding, sewage overflow, and drinking water facility breakdowns.',
+    badgeColor: '#0e9f6e',
+    badgeBg: '#def7ec'
+  },
+  {
+    id: 'it',
+    icon: '💻',
+    name: 'IT Services & Wi-Fi Crisis',
+    category: 'Utilities',
+    ext: 'x4405',
+    phone: '+91 98765 44005',
+    available: '8:00 AM - 10:00 PM',
+    desc: 'Urgent network, campus portal down during submission deadlines, and computer lab server room emergencies.',
+    badgeColor: '#6875f5',
+    badgeBg: '#e1effe'
+  }
+];
+
+let activeEmergencyCat = 'all';
+
+function renderEmergencyContacts() {
+  const container = $('#emergencyCardGrid');
+  if (!container) return;
+
+  const list = activeEmergencyCat === 'all'
+    ? emergencyContacts
+    : emergencyContacts.filter(c => c.category === activeEmergencyCat);
+
+  if (!list.length) {
+    container.innerHTML = `<div class="empty">No emergency contacts found for this category.</div>`;
+    return;
+  }
+
+  container.innerHTML = list.map(c => `
+    <div class="emergency-card">
+      <div class="emergency-card-top">
+        <div class="emergency-avatar" style="background:${c.badgeBg};color:${c.badgeColor}">${c.icon}</div>
+        <div class="emergency-info">
+          <h4>${esc(c.name)}</h4>
+          <div class="emergency-sub-info">
+            <span class="live-pulse-dot"></span>
+            <span class="avail-text">${esc(c.available)}</span>
+            <span class="ext-badge">Ext: ${esc(c.ext)}</span>
+          </div>
+        </div>
+      </div>
+      <p class="emergency-desc">${esc(c.desc)}</p>
+      <div class="emergency-actions">
+        <a href="tel:${c.phone.replace(/[^0-9+]/g, '')}" class="btn call-action-btn">
+          <span>📞</span> Call ${esc(c.phone)}
+        </a>
+        <button type="button" class="btn secondary copy-action-btn" onclick="copyEmergencyNumber('${c.phone}', '${esc(c.name)}')">
+          <span>📋</span> Copy
+        </button>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterEmergencyCategory(cat) {
+  activeEmergencyCat = cat;
+  $$('#emergencyFilterTabs .e-tab-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.ecat === cat);
+  });
+  renderEmergencyContacts();
+}
+
+function openEmergencyModal() {
+  closeSidebar();
+  const m = $('#emergencyModal');
+  if (m) {
+    m.classList.add('show');
+    renderEmergencyContacts();
+  }
+}
+
+function closeEmergencyModal() {
+  const m = $('#emergencyModal');
+  if (m) m.classList.remove('show');
+}
+
+function copyEmergencyNumber(num, name) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(num).then(() => {
+      showToast(`Copied ${name} number: ${num}`);
+    }).catch(() => {
+      showToast(`Emergency number: ${num}`);
+    });
+  } else {
+    showToast(`Emergency number: ${num}`);
+  }
+}
+
+
 function applyUserTheme(user) {
   if (!user) return;
   const isAdmin = user.role === 'Admin';
@@ -55,6 +219,10 @@ function applyUserTheme(user) {
   if (mineBtn) {
     mineBtn.innerHTML = `<span class="ico">${isAdmin ? '⚡' : '◷'}</span>${isAdmin ? 'Needs Action' : 'My Complaints'}<span class="nav-badge" id="badgeMine">0</span>`;
   }
+  const emergencyNavBtn = $('#emergencyNavBtn');
+  if (emergencyNavBtn) {
+    emergencyNavBtn.style.display = isAdmin ? 'none' : 'flex';
+  }
   const reportNavBtn = $('#reportNav');
   if (reportNavBtn) {
     reportNavBtn.style.display = isAdmin ? 'none' : 'flex';
@@ -73,7 +241,10 @@ function applyUserTheme(user) {
     if (isAdmin) {
       helpbox.innerHTML = `<b>Operations Dispatch</b>Security Duty: <b>x4400</b> · Facilities Director: <b>x4412</b> · Direct Escalation Active.`;
     } else {
-      helpbox.innerHTML = `<b>Need immediate help?</b>For emergency safety or electrical hazards, call Campus Security at <b>x4400</b>.`;
+      helpbox.innerHTML = `
+        <b>Need immediate help?</b>For emergency safety or medical needs, call rapid response 24/7.
+        <button type="button" class="helpbox-emergency-btn" onclick="openEmergencyModal()">🚨 View Emergency Contacts</button>
+      `;
     }
   }
 
@@ -99,6 +270,7 @@ function applyUserTheme(user) {
       `;
     } else {
       headerActions.innerHTML = `
+        <button class="btn secondary" style="border-color:#fecaca;color:#dc2626;" onclick="openEmergencyModal()" title="View 24/7 campus emergency helplines">🚨 &nbsp;Emergency Contacts</button>
         <button class="btn" id="reportBtn" onclick="openReportModal()">＋ &nbsp;Report an issue</button>
       `;
     }
@@ -124,7 +296,10 @@ function applyUserTheme(user) {
             <b>Campus Facilities Helpdesk</b>
             <p>Notice a broken light, leaky pipe, Wi-Fi fault, or classroom issue? Submit a report for fast repair.</p>
           </div>
-          <button class="btn" style="padding: 8px 14px; font-size: 12px; white-space: nowrap;" onclick="openReportModal()">＋ Report Issue</button>
+          <div style="display: flex; gap: 8px; align-items: center; flex-wrap: wrap;">
+            <button class="btn emergency-banner-btn" type="button" onclick="openEmergencyModal()">🚨 Emergency Contacts</button>
+            <button class="btn" style="padding: 8px 14px; font-size: 12px; white-space: nowrap;" onclick="openReportModal()">＋ Report Issue</button>
+          </div>
         </div>
       `;
     }
@@ -425,10 +600,35 @@ function render() {
       `).join('')}</div>`;
     }
   } else {
-    if (updatesPanelTitle) updatesPanelTitle.textContent = 'Campus Notices';
-    if (updatesPanelSubtitle) updatesPanelSubtitle.textContent = 'Maintenance schedules';
+    if (updatesPanelTitle) updatesPanelTitle.textContent = 'Campus Notices & Help';
+    if (updatesPanelSubtitle) updatesPanelSubtitle.textContent = 'Emergency helplines & schedules';
     if (updatesContent) {
       updatesContent.innerHTML = `
+        <div class="quick-emergency-widget">
+          <div class="q-emer-head">
+            <span class="q-emer-badge">🚨 24/7 RAPID HELPLINES</span>
+            <button type="button" class="q-emer-viewall" onclick="openEmergencyModal()">All Contacts (7) →</button>
+          </div>
+          <div class="q-emer-row">
+            <div class="q-emer-item">
+              <span class="q-emer-ico">🛡️</span>
+              <div class="q-emer-text">
+                <b>Security Desk</b>
+                <small>Ext: x4400</small>
+              </div>
+              <a href="tel:+919876544000" class="q-emer-call" title="Call Campus Security">Call</a>
+            </div>
+            <div class="q-emer-item">
+              <span class="q-emer-ico">🚑</span>
+              <div class="q-emer-text">
+                <b>Ambulance</b>
+                <small>Ext: x4402</small>
+              </div>
+              <a href="tel:+919876544002" class="q-emer-call" title="Call Health Center">Call</a>
+            </div>
+          </div>
+        </div>
+
         <div class="notice-card-list">
           ${campusNotices.map(n => `
             <div class="notice-card">
