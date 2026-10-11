@@ -1204,6 +1204,13 @@ body.admin-mode .nav button .nav-badge {
   color: #6d28d9;
 }
 
+/* Hide all report issue buttons in Admin mode */
+body.admin-mode #reportNav,
+body.admin-mode #reportBtn,
+body.admin-mode #mobFabBtn {
+  display: none !important;
+}
+
 /* Quick Filter Bar (Triage Tabs) */
 .quick-filter-bar {
   display: flex;

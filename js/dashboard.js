@@ -57,7 +57,14 @@ function applyUserTheme(user) {
   }
   const reportNavBtn = $('#reportNav');
   if (reportNavBtn) {
-    reportNavBtn.innerHTML = `<span class="ico">＋</span>${isAdmin ? 'New Work Order' : 'Report an Issue'}`;
+    reportNavBtn.style.display = isAdmin ? 'none' : 'flex';
+    reportNavBtn.innerHTML = `<span class="ico">＋</span>Report an Issue`;
+  }
+
+  // Mobile Floating Add button
+  const mobFabBtn = $('#mobFabBtn');
+  if (mobFabBtn) {
+    mobFabBtn.style.display = isAdmin ? 'none' : 'grid';
   }
 
   // Sidebar helpbox text
@@ -89,7 +96,6 @@ function applyUserTheme(user) {
     if (isAdmin) {
       headerActions.innerHTML = `
         <button class="btn secondary" onclick="exportTicketsCSV()" title="Download complete CSV summary">📥 &nbsp;Export CSV</button>
-        <button class="btn" onclick="openReportModal()">＋ &nbsp;New Work Order</button>
       `;
     } else {
       headerActions.innerHTML = `
