@@ -167,8 +167,13 @@
             <h1 id="greeting">Good morning, Alex 👋</h1>
             <p id="subheading">Here’s what’s happening around your campus today.</p>
           </div>
-          <button class="btn" id="reportBtn">＋ &nbsp;Report an issue</button>
+          <div class="heading-actions-wrap" id="headingActionsWrap">
+            <button class="btn" id="reportBtn">＋ &nbsp;Report an issue</button>
+          </div>
         </div>
+
+        <!-- Role-Specific Banner Alert Slot -->
+        <div id="roleBannerSlot"></div>
 
         <!-- Quick Metrics -->
         <div class="stats" id="stats"></div>
@@ -180,6 +185,9 @@
               <h2 id="listTitle">Recent complaints</h2>
               <span id="listCount"></span>
             </div>
+
+            <!-- Role-Specific Quick Filter Pills (Triage Bar) -->
+            <div class="quick-filter-bar" id="quickFilterBar"></div>
 
             <div class="toolbar">
               <input class="search" id="search" placeholder="Search tickets, rooms, buildings…" autocomplete="off">
@@ -195,7 +203,7 @@
 
             <div class="table-wrap">
               <table class="table">
-                <thead>
+                <thead id="tableHead">
                   <tr>
                     <th>Issue</th>
                     <th>Location</th>
@@ -225,10 +233,12 @@
 
             <section class="panel">
               <div class="panel-head">
-                <h2>Recent updates</h2>
-                <span>Campus live stream</span>
+                <h2 id="updatesPanelTitle">Recent updates</h2>
+                <span id="updatesPanelSubtitle">Campus live stream</span>
               </div>
-              <div class="activity" id="activity"></div>
+              <div id="updatesContent">
+                <div class="activity" id="activity"></div>
+              </div>
             </section>
           </div>
         </div>

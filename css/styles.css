@@ -1124,6 +1124,246 @@ button { cursor: pointer; }
   .mobile-bottom-nav { display: flex; }
 }
 
+/* ==========================================================================
+   ROLE-SPECIFIC INTERFACE DIFFERENTIATION: ADMIN VS STUDENT
+   ========================================================================== */
+
+/* Admin Executive Command Palette */
+body.admin-mode {
+  --green: #6d28d9;
+  --green-hover: #5b21b6;
+  --green2: #f3e8ff;
+}
+
+body.admin-mode .brand-mark {
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  box-shadow: 0 6px 16px rgba(109, 40, 217, 0.32);
+}
+
+body.admin-mode .sidebar {
+  background: #fbf9ff;
+  border-right-color: #ede9fe;
+}
+
+body.admin-mode .topbar {
+  background: rgba(251, 249, 255, 0.94);
+  border-bottom-color: #ede9fe;
+}
+
+body.admin-mode .eyebrow {
+  color: #7c3aed;
+}
+
+body.admin-mode .stat-icon {
+  background: #f3e8ff;
+  color: #6d28d9;
+}
+
+body.admin-mode .btn {
+  background: #6d28d9;
+  box-shadow: 0 4px 14px rgba(109, 40, 217, 0.25);
+}
+
+body.admin-mode .btn:hover {
+  background: #5b21b6;
+}
+
+body.admin-mode .btn.secondary {
+  background: #fff;
+  color: #4b1f86;
+  border-color: #ddd6fe;
+}
+
+body.admin-mode .btn.secondary:hover {
+  background: #f5f3ff;
+}
+
+body.admin-mode .helpbox {
+  background: #f5f0ff;
+  border: 1px solid #e9d5ff;
+  color: #5b21b6;
+}
+
+body.admin-mode .helpbox b {
+  color: #4c1d95;
+}
+
+body.admin-mode .role-badge-pill {
+  background: #f3e8ff;
+  color: #6d28d9;
+}
+
+body.admin-mode .nav button.active,
+body.admin-mode .nav button:hover {
+  color: #6d28d9;
+  background: #f3e8ff;
+}
+
+body.admin-mode .nav button .nav-badge {
+  background: #ede9fe;
+  color: #6d28d9;
+}
+
+/* Quick Filter Bar (Triage Tabs) */
+.quick-filter-bar {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 0 0 14px;
+  margin-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+
+.quick-filter-pill {
+  border: 1px solid var(--line);
+  background: #f8faf8;
+  color: #556259;
+  padding: 6px 13px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: all .15s ease;
+}
+
+.quick-filter-pill:hover {
+  background: #fff;
+  border-color: #ccd5ce;
+}
+
+.quick-filter-pill.active {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.quick-filter-pill .pill-count {
+  background: rgba(0,0,0,0.08);
+  padding: 1px 7px;
+  border-radius: 10px;
+  font-size: 11px;
+}
+
+.quick-filter-pill.active .pill-count {
+  background: rgba(255,255,255,0.28);
+  color: #fff;
+}
+
+body.admin-mode .quick-filter-pill.active {
+  background: #6d28d9;
+  border-color: #6d28d9;
+}
+
+/* Header Action Buttons */
+.heading-actions-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Row Action Buttons in Table */
+.row-action-btn {
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 9px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all .12s ease;
+  white-space: nowrap;
+}
+
+.row-action-btn:hover {
+  background: #f3e8ff;
+  color: #6d28d9;
+  border-color: #d8b4fe;
+}
+
+.row-action-btn.resolve-quick {
+  background: #ecfdf5;
+  color: #047857;
+  border-color: #a7f3d0;
+}
+
+.row-action-btn.resolve-quick:hover {
+  background: #10b981;
+  color: #fff;
+  border-color: #10b981;
+}
+
+/* Student Notice Board Widget */
+.notice-card-list {
+  display: grid;
+  gap: 12px;
+}
+
+.notice-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 11px;
+  border-radius: 11px;
+  background: #f7faf8;
+  border: 1px solid #e7efe9;
+}
+
+.notice-icon {
+  font-size: 16px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: #e7f3eb;
+  color: var(--green);
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.notice-details strong {
+  display: block;
+  font-size: 12px;
+  color: var(--ink);
+  margin-bottom: 2px;
+}
+
+.notice-details p {
+  margin: 0;
+  font-size: 11px;
+  color: #68756d;
+  line-height: 1.4;
+}
+
+/* Student Banner Alert */
+.student-welcome-banner {
+  background: linear-gradient(135deg, #e8f5ec 0%, #f4faf6 100%);
+  border: 1px solid #cce5d4;
+  border-radius: 14px;
+  padding: 16px 20px;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+}
+
+.student-welcome-banner b {
+  color: #12553a;
+  font-size: 14px;
+}
+
+.student-welcome-banner p {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: #4b6656;
+}
+
 @media (max-width: 380px) {
   .stats { grid-template-columns: 1fr; }
   .toolbar { grid-template-columns: 1fr; }
